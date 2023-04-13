@@ -1,0 +1,22 @@
+#SINGLE: trim reads -> assemble isolate genome -> annotate isolate genome ->
+#identify taxa of isolate -> MULTIPLE: use that to pull accessions from NCBI data ->
+
+include: "rules/trim_reads.smk"
+include: "rules/spades.smk"
+include: "rules/prokka.smk"
+include: "rules/gtdbtk.smk"
+include: "rules/gtotree.smk"
+include: "rules/roary.smk"
+
+#pre-determined entries for rule all depending on which snakemake call it is
+RULE_ALL_DICT = {
+    "isolate": [f"{OUTPUT}/prokka/genome_isolate.gff", f"{OUTPUT}/gtdbtk/gtdbtk.bac120.summary.tsv"],
+    "gtotree": [f"{OUTPUT}/rgi/read_pair_{{sample}}/final.txt", f"{OUTPUT}/genomad/read_pair_{{sample}}/contigs_summary/contigs_plasmid_summary.tsv"]
+}
+
+#select the rule depending on what config file variable is set as
+RULE_ALL = RULE_ALL_DICT[config["rule_all"]]
+
+rule all:
+    input:
+        RULE_ALL
