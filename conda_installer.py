@@ -25,3 +25,11 @@ with open (conda_path_file, 'r') as file:
 
 #get the script path
 home_dir = os.path.dirname(os.path.abspath(__file__))
+envs_dir = os.path.join(home_dir, "workflow/envs")
+
+#iterate over predownloaded envs folder, and download them from the .yamls
+for filename in os.listdir(envs_dir):
+    z = os.path.join(envs_dir, filename).replace("\\", "/")
+    env = os.path.join(outdir, filename.split(".")[0])
+    os.mkdir(env)
+    os.system(f"mamba env create -f {z} -p {env}")

@@ -28,7 +28,3 @@ def map_id(path, leaves):
         f.write("\n")
 
     f.write("contigs.fa" + "\t" + "isolate")
-
-
-
-

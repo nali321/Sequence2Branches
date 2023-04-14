@@ -2,20 +2,22 @@
 OUTPUT = config["output"]
 ENVS = config["envs_path"]
 CONDA_PATH = config["conda_path"]
-GTDBTK_PATH = config["gtdbtk_path"]
-
+TREE = config["tree_type"]
+TEXT_FILES = config["gtotree_text"]
+H_FLAG = config["h_flag"]
 
 rule gtotree:
     input:
-        assembly=f"{OUTPUT}/spades/contigs.fasta"
+        fasta=f"{TEXT_FILES}/fasta_files.txt",
+        map=f"{TEXT_FILES}/map_id.txt"
     output:
-        args=f"{OUTPUT}/gtdbtk/gtdbtk.bac120.summary.tsv"
+        tre=f"{OUTPUT}/{TREE}_tree/{TREE}_tree.tre"
     shell:
         '''
-        mkdir {OUTPUT}/fna
-        cp {input.assembly} {OUTPUT}/fna/contigs.fna
+        cp {OUTPUT}/spades/contigs.fasta {OUTPUT}/accessions/contigs.fa
         source {CONDA_PATH}
-        conda activate {GTDBTK_PATH}
-        gtdbtk classify_wf --genome_dir {OUTPUT}/fna --out_dir {OUTPUT}/gtdbtk --cpus 32
+        conda activate {envs}/gtotree
+        cd {OUTPUT}/accessions
+        GToTree -f {input.fasta} -H {H_FLAG} -t -L Species,Strain -m {input.map} -T IQ-TREE -j 16 -o {OUTPUT}/{TREE}_tree
         conda deactivate
         '''

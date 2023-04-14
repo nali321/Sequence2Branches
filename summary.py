@@ -1,51 +1,44 @@
 import pandas as pd
 
-#creates the dictionary structure to easily search accessions by strain name
+#creates two dictionaries:
+#name_structure: allows you to use taxa as the key to pull entries of accessions
+#acc_structure: allows you to use accession name as the key to pull accession-specific entries
 def structure(filepath):
-    collection = []
+    species_names = set()
+    name_structure = {}
+    acc_structure = {}
 
     #open the file and split up the contents of each row
     #and save it into a list of lists
     with open(filepath, 'r', encoding="utf-8") as file:
         for line in file:
-            z = line.split('\t')
+            x = line.split('\t')
             
-            collection.append(z)
+            #add to accession structure
+            acc_structure[x[0]] = [x]
+
+            #if its not in species list, create an empty list as an entry for that species name,
+            #and add the entire row into it as a list within a list
+            if x[7] not in species_names:
+                species_names.add(x[7])
+                name_structure[x[7]] = []
+                name_structure[x[7]].append(x)
+            
+            #if its already in, add that row as a list within the dictionary list
+            else:
+                name_structure[x[7]].append(x)
     
-    collection.pop(0)
-
-    name_structure = {}
-    species_names = set()
-
-    acc_structure = {}
-
-    #creates a dictionary structure where keys are species names
-    #allows for quick lookup of leaves for the tree
-    for x in collection:
-        #add to accession structure
-        acc_structure[x[0]] = [x]
-
-        #if its not in species list, create an empty list as an entry for that species name,
-        #and add the entire row into it as a list within a list
-        if x[7] not in species_names:
-            species_names.add(x[7])
-            name_structure[x[7]] = []
-            name_structure[x[7]].append(x)
-        
-        #if its already in, add that row as a list within the dictionary list
-        else:
-            name_structure[x[7]].append(x)
-
     return name_structure, acc_structure
 
 #obtain a list of data for every leaf of the tree
-#you need to try searching name first, and if that doesn't work, search
-#the accession instead
+#you need to try searching name first, and if that doesn't work, search the accession instead
 def leaves(name_structure, acc_structure, max, species):
     leaves = []
+    full = []
+    partial = []
     #iterate through list of lists of species
     #x[0] = accession, x[7] = species name, x[8] = strain name, 
-    #x[11] = assembly type, x[19] = ftp path
+    #x[11] = assembly type, x[13] = genome_rep, x[19] = ftp path
     try:
         blank = 1
         diff = 1
@@ -58,6 +51,8 @@ def leaves(name_structure, acc_structure, max, species):
             if len(leaves) < max:
                 #obtain the accession, strain name, and ftp link
                 strain = x[8]
+                level = x[11]
+                rep = x[13]
 
                 #check if 8th column (strain name) is empty, if so, use 9th
                 if strain == '':
@@ -67,18 +62,33 @@ def leaves(name_structure, acc_structure, max, species):
                     if strain == '':
                         strain = "unique_" + str(blank)
                         blank+=1
-                        leaves.append((x[0], strain, x[19][57:]))
+                        if level == "Complete Genome":
+                            leaves.append((x[0], strain, x[19][57:]))
+                        elif level != "Complete Genome" and rep == "Full":
+                            full.append((x[0], strain, x[19][57:]))
+                        else:
+                            partial.append((x[0], strain, x[19][57:]))
 
                     #duplicate check
                     elif strain in strain_names:
                         strain = strain + "_copy_" + str(diff)
                         diff+=1
-                        leaves.append((x[0], strain, x[19][57:]))
+                        if level == "Complete Genome":
+                            leaves.append((x[0], strain, x[19][57:]))
+                        elif level != "Complete Genome" and rep == "Full":
+                            full.append((x[0], strain, x[19][57:]))
+                        else:
+                            partial.append((x[0], strain, x[19][57:]))
                     
                     #if its unique, add it normally
                     else:
                         strain_names.add(strain)
-                        leaves.append((x[0], strain, x[19][57:]))
+                        if level == "Complete Genome":
+                            leaves.append((x[0], strain, x[19][57:]))
+                        elif level != "Complete Genome" and rep == "Full":
+                            full.append((x[0], strain, x[19][57:]))
+                        else:
+                            partial.append((x[0], strain, x[19][57:]))
 
                 #if 8th column is there, remove "strain="
                 elif strain[0:6] == "strain":
@@ -88,15 +98,25 @@ def leaves(name_structure, acc_structure, max, species):
                     if strain in strain_names:
                         strain = strain + "_copy_" + str(diff)
                         diff+=1
-                        leaves.append((x[0], strain, x[19][57:]))
+                        if level == "Complete Genome":
+                            leaves.append((x[0], strain, x[19][57:]))
+                        elif level != "Complete Genome" and rep == "Full":
+                            full.append((x[0], strain, x[19][57:]))
+                        else:
+                            partial.append((x[0], strain, x[19][57:]))
                     
                     #if unique, add normally
                     else:
                         strain_names.add(strain)
-                        leaves.append((x[0], strain, x[19][57:]))    
+                        if level == "Complete Genome":
+                            leaves.append((x[0], strain, x[19][57:]))
+                        elif level != "Complete Genome" and rep == "Full":
+                            full.append((x[0], strain, x[19][57:]))
+                        else:
+                            partial.append((x[0], strain, x[19][57:]))
 
     except KeyError:
-        print("species name doesn't match dictionary entry")
+        print("Species name does not match collected NCBI entries")
 
     return leaves
 
