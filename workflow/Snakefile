@@ -11,7 +11,7 @@ include: "rules/roary.smk"
 
 OUTPUT = config["output"]
 TREE = config["tree_type"]
-RULE_TYPE = config["rule_all"]
+RULE_TYPE = config["rule_type"]
 
 #pre-determined entries for rule all depending on which snakemake call it is
 RULE_ALL_DICT = {
@@ -26,7 +26,7 @@ if RULE_TYPE == "pangenome":
 
 #select the rule depending on what config file variable is set as
 else: 
-    RULE_ALL = RULE_ALL_DICT[config["rule_all"]]
+    RULE_ALL = RULE_ALL_DICT[RULE_TYPE]
 
 rule all:
     input:
