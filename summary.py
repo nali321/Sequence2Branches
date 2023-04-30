@@ -11,22 +11,25 @@ def structure(filepath):
     #open the file and split up the contents of each row
     #and save it into a list of lists
     with open(filepath, 'r', encoding="utf-8") as file:
+        header = True
         for line in file:
-            x = line.split('\t')
-            
-            #add to accession structure
-            acc_structure[x[0]] = [x]
+            if header != True:
+                x = line.split('\t')
+                
+                #add to accession structure
+                acc_structure[x[0]] = [x]
 
-            #if its not in species list, create an empty list as an entry for that species name,
-            #and add the entire row into it as a list within a list
-            if x[7] not in species_names:
-                species_names.add(x[7])
-                name_structure[x[7]] = []
-                name_structure[x[7]].append(x)
-            
-            #if its already in, add that row as a list within the dictionary list
-            else:
-                name_structure[x[7]].append(x)
+                #if its not in species list, create an empty list as an entry for that species name,
+                #and add the entire row into it as a list within a list
+                if x[7] not in species_names:
+                    species_names.add(x[7])
+                    name_structure[x[7]] = []
+                    name_structure[x[7]].append(x)
+                
+                #if its already in, add that row as a list within the dictionary list
+                else:
+                    name_structure[x[7]].append(x)
+            header = False
     
     return name_structure, acc_structure
 
