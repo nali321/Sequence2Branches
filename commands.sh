@@ -43,7 +43,7 @@ python ~/tools/Sequence2Branches/sequence2branches.py \
 -r2 /mmfs1/home/4565alin/reads2tree/2021_genomes/assigned_reads/1_R2_001.fastq.gz \
 -i ~/NexteraPE-PE.fa -s /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/assembly_summary.txt \
 -r /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/references \
--g /mmfs1/groups/HPC-Marshall/miniconda3/gtdbtk-2.1.0 \
+-g /mmfs1/groups/HPC-Marshall/miniconda3/envs/gtdbtk-2.1.0 \
 -e /mmfs1/home/4565alin/SEQ2B_PREREQ/envs \
 -o ~/seq2b_test \
 -bt 20 -lt 10
