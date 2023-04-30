@@ -15,6 +15,9 @@ parser.add_argument("-r1", "--read1", type=str,
 parser.add_argument("-r2", "--read2", type=str,
                     help="Filepath of second half of read pair", required=True)
 
+parser.add_argument("-i", "--illuminaclip", type=str,
+                    help="Illuminaclip used in Trimmomatic", required=True)
+
 parser.add_argument("-s", "--summary", type=str,
                     help="Filepath to assembly_summary.txt", required=True)
 
@@ -48,6 +51,7 @@ args = parser.parse_args()
 
 r1 = args.read1
 r2 = args.read2
+illuminaclip = args.illuminaclip
 summary_path = args.summary
 ref_path = args.references
 gtdbtk_path = args.gtdbtk
@@ -93,7 +97,7 @@ else:
     gtdbtk_conda_path = conda_profile
 
 #create config file for isolate proccessing
-d = {"output": outdir, "r1": r1, "r2": r2,
+d = {"output": outdir, "r1": r1, "r2": r2, "illuminaclip": illuminaclip,
     "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": gtdbtk_conda_path,
     "gtdbtk_path": gtdbtk_path, "tree_type": "N/A", 
     "gtotree_text": "N/A", "h_flag": "N/A", "rule_type": "isolate"}
@@ -164,7 +168,7 @@ for x in big_leaves:
 #to contigs.fa in gtotree rule
 
 #create config file for gtotree
-d = {"output": outdir, "r1": "N/A", "r2": "N/A",
+d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
     "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
     "gtdbtk_path": "N/A", "tree_type": "big", "gtotree_text": big_gtotree_text_files, 
     "h_flag": h_flag, "rule_type": "gtotree"}
@@ -189,7 +193,7 @@ else:
     gtotree_text.map_id(little_gtotree_text_files, little_leaves)
 
 #create config file for gtotree
-d = {"output": outdir, "r1": "N/A", "r2": "N/A",
+d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
     "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
     "gtdbtk_path": "N/A", "tree_type": "little", "gtotree_text": little_gtotree_text_files, 
     "h_flag": h_flag, "rule_type": "gtotree"}
@@ -233,7 +237,7 @@ if pangenome_size != None:
     os.system(f"gzip -d {fastas_dir}/*.gz")
 
     #create config file for pangenome
-    d = {"output": outdir, "r1": "N/A", "r2": "N/A",
+    d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
         "conda_path": conda_profile, "envs_path": envs_path, "gdtbtk_conda_path": "N/A",
         "gtdbtk_path": "N/A", "tree_type": "big", "gtotree_text": "N/A", 
         "h_flag": "N/A", "rule_type": "gtotree"}
