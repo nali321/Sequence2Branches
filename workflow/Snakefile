@@ -1,8 +1,5 @@
 from snakemake.io import glob_wildcards
 
-#SINGLE: trim reads -> assemble isolate genome -> annotate isolate genome ->
-#identify taxa of isolate -> MULTIPLE: use that to pull accessions from NCBI data ->
-
 include: "rules/trim_reads.smk"
 include: "rules/spades.smk"
 include: "rules/prokka.smk"

@@ -38,8 +38,9 @@ done
 python ~/tools/Sequence2Branches/conda_installer.py -o ~/SEQ2B_PREREQ/envs
 
 #run without pangenome
-python ~/tools/Sequence2Branches/sequence2branches.py -r1 /mmfs1/home/4565alin/reads2tree/2021_genomes/assigned_reads/1_R1_001.fastq.gz
--r2 /mmfs1/home/4565alin/reads2tree/2021_genomes/assigned_reads/1_R2_001.fastq.gz
+python ~/tools/Sequence2Branches/sequence2branches.py \
+-r1 /mmfs1/home/4565alin/reads2tree/2021_genomes/assigned_reads/1_R1_001.fastq.gz \
+-r2 /mmfs1/home/4565alin/reads2tree/2021_genomes/assigned_reads/1_R2_001.fastq.gz \
 -s /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/assembly_summary.txt \
 -r /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/references \
 -g /mmfs1/groups/HPC-Marshall/miniconda3/gtdbtk-2.1.0 \

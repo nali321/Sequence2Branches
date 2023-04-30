@@ -5,7 +5,7 @@ GTDBTK_CONDA = config["gtdbtk_conda_path"]
 GTDBTK_PATH = config["gtdbtk_path"]
 
 #check if gtdbtk has a separate conda profile
-if GTDBTK_CONDA != "N/A":
+if GTDBTK_CONDA != None:
     CONDA_PATH = GTDBTK_CONDA
 
 rule gtdbtk:

@@ -87,7 +87,10 @@ with open (conda_path_file, 'r') as file:
 #YOU HAVE TO COMPARE THE ENVS AND GTDBTK FILEPATHS, IF THEY ARE NOT
 #THE SAME YOU HAVE TO SOURCE THE GTDBTK CONDA PROFILE SEPARETLY TO MAKE IT WORK
 #compare conda_path with the gtdbtk env path
-gtdbtk_conda_path = None
+if methods.path_compare(conda_path, gtdbtk_path) == None:
+    gtdbtk_conda_path = None
+else:
+    gtdbtk_conda_path = conda_profile
 
 #create config file for isolate proccessing
 d = {"output": outdir, "r1": r1, "r2": r2,
