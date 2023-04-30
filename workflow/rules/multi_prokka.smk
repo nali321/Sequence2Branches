@@ -11,6 +11,6 @@ rule multi_prokka:
         '''
         source {CONDA_PATH}
         conda activate {ENVS}/prokka
-        prokka --centre X --force --locustag {wildcards.sample} --outdir {OUTPUT}/prokka/{wildcards.sample} --prefix genome --gffver 3 --cpus 8 {input.assembly}
+        prokka --centre X --force --locustag {wildcards.sample} --outdir {OUTPUT}/prokka/{wildcards.sample} --prefix {wildcards.sample} --gffver 3 --cpus 8 {input.assembly}
         conda deactivate
         '''
