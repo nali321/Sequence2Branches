@@ -18,6 +18,6 @@ rule gtotree:
         source {CONDA_PATH}
         conda activate {ENVS}/gtotree
         cd {OUTPUT}/accessions
-        GToTree -f {input.fasta} -H {H_FLAG} -t -L Species,Strain -m {input.map} -T IQ-TREE -j 16 -o {OUTPUT}/{TREE}_tree
+        GToTree -f {input.fasta} -H {H_FLAG} -t -L Species,Strain -m {input.map} -F -T IQ-TREE -j 16 -o {OUTPUT}/{TREE}_tree
         conda deactivate
         '''
