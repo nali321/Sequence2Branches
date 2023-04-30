@@ -52,9 +52,9 @@ summary_path = args.summary
 ref_path = args.references
 gtdbtk_path = args.gtdbtk
 envs_path = args.envs
-sc = args.snakemake_cores
 big_tree_size = args.big_tree
 little_tree_size = args.little_tree
+sc = args.snakemake_cores
 
 #set max number of genomes for pangenome
 if args.pangenome_size is None:
@@ -80,12 +80,18 @@ conda_path_file = os.path.join(outdir, "CONDA_PATH.txt").replace("\\", "/")
 os.system(f"conda info --root > {conda_path_file}")
 with open (conda_path_file, 'r') as file:
     for line in file:
+        conda_path = line.strip('\n')
         conda_profile = os.path.join(line.strip('\n'), "etc/profile.d/conda.sh").replace("\\", "/")
         break
 
+#YOU HAVE TO COMPARE THE ENVS AND GTDBTK FILEPATHS, IF THEY ARE NOT
+#THE SAME YOU HAVE TO SOURCE THE GTDBTK CONDA PROFILE SEPARETLY TO MAKE IT WORK
+#compare conda_path with the gtdbtk env path
+gtdbtk_conda_path = None
+
 #create config file for isolate proccessing
 d = {"output": outdir, "r1": r1, "r2": r2,
-    "conda_path": conda_profile, "envs_path": envs_path, 
+    "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": gtdbtk_conda_path,
     "gtdbtk_path": gtdbtk_path, "tree_type": "N/A", 
     "gtotree_text": "N/A", "h_flag": "N/A", "rule_type": "isolate"}
 
@@ -123,9 +129,13 @@ big_leaves.append(outgroup)
 
 #create the text files needed for big gtotree
 big_gtotree_text_files = os.path.join(outdir, "big_gtotree_text_files").replace("\\", "/")
-os.mkdir(big_gtotree_text_files)
-gtotree_text.fasta_files(big_gtotree_text_files, big_leaves)
-gtotree_text.map_id(big_gtotree_text_files, big_leaves)
+try:
+    os.mkdir(big_gtotree_text_files)
+except OSError as error:
+    print(error)
+else:
+    gtotree_text.fasta_files(big_gtotree_text_files, big_leaves)
+    gtotree_text.map_id(big_gtotree_text_files, big_leaves)
 
 #EXTRACT FILEPATH NAME FROM COLUMN 20: "FTP_PATH", AND ADD "_genomic.fna.gz" AT THE END TO FIND
 #IT IN REFERENCES: /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/references
@@ -135,7 +145,10 @@ gtotree_text.map_id(big_gtotree_text_files, big_leaves)
 #leaves[0] = accession | leaves[1] = strain name | leaves[2] = ftp path
 #also assign name key to accession value
 nametodata = {}
-os.mkdir(f"{outdir}/accessions")
+try:
+    os.mkdir(f"{outdir}/accessions")
+except OSError as error:
+    print(error)
 for x in big_leaves:
     acc = x[0] + ".fa.gz"
     ftp = x[2] + "_genomic.fna.gz"
@@ -144,14 +157,12 @@ for x in big_leaves:
     os.system(f"cp {ftp_path} {acc_path}")
     nametodata[x[1]] = (x[0], x[1].replace(" ", "_"), acc_path)
 
-# #THIS IS THE ISOLATE
-# #move contigs.fasta from ./spades to main dir, renamed contigs.fa
-# isolate = os.path.join(f"{outdir}/accessions", "contigs.fa").replace("\\", "/")
-# os.system(f"cp {outdir}/spades/contigs.fasta {isolate}")
+#handle moving and renaming isolate contigs.fasta file from spades
+#to contigs.fa in gtotree rule
 
 #create config file for gtotree
 d = {"output": outdir, "r1": "N/A", "r2": "N/A",
-    "conda_path": conda_profile, "envs_path": envs_path, 
+    "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
     "gtdbtk_path": "N/A", "tree_type": "big", "gtotree_text": big_gtotree_text_files, 
     "h_flag": h_flag, "rule_type": "gtotree"}
 
@@ -162,17 +173,21 @@ config_path = methods.config(d, "gtotree_config", outdir)
 os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}")
 
 #get leaves for small tree
-little_leaves = methods.closest_leaves(f"{outdir}/big_gtotree.tre", little_tree_size, nametodata, outgroup)
+distances, disttoname, little_leaves = methods.closest_leaves(f"{outdir}/big_gtotree.tre", little_tree_size, nametodata, outgroup)
 
 #create the text files needed for big gtotree
 little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
-os.mkdir(little_gtotree_text_files)
-gtotree_text.fasta_files(little_gtotree_text_files, little_leaves)
-gtotree_text.map_id(little_gtotree_text_files, little_leaves)
+try:
+    os.mkdir(little_gtotree_text_files)
+except OSError as error:
+    print(error)
+else:
+    gtotree_text.fasta_files(little_gtotree_text_files, little_leaves)
+    gtotree_text.map_id(little_gtotree_text_files, little_leaves)
 
 #create config file for gtotree
 d = {"output": outdir, "r1": "N/A", "r2": "N/A",
-    "conda_path": conda_profile, "envs_path": envs_path, 
+    "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
     "gtdbtk_path": "N/A", "tree_type": "little", "gtotree_text": little_gtotree_text_files, 
     "h_flag": h_flag, "rule_type": "gtotree"}
 
@@ -184,10 +199,44 @@ os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/
 
 #optional pangenome making step 
 if pangenome_size != None:
-    #move closest genomes to gffs folder, unzip them, and run prokka on them
-    #get the filepaths of the user specified closest genomes to isolate
+
+    #create pangenome directory
+    pan_dir = os.path.join(outdir, "pangenome").replace("\\", "/")
+    try:
+        os.mkdir(pan_dir)
+    except OSError as error:
+        print(error)
+
+    #gather accessions equal to or less than user specified pangenome size
     roary_genomes = []
     for x in distances:
         if len(roary_genomes) < pangenome_size:
             name = disttoname[x]
             roary_genomes.append(nametodata[name][2])
+    
+    #create fastas folder
+    fastas_dir = os.path.join(pan_dir, "fastas").replace("\\", "/")
+    try:
+        os.mkdir(fastas_dir)
+    except OSError as error:
+        print(error)
+    else:
+        #move genomes to fastas folder and collect future unzipped file name
+        for x in roary_genomes:
+            os.system(f"cp {x} {fastas_dir}")
+            unzip = os.path.basename(x)[:-3]
+    
+    #unzip all the .gz files
+    os.system(f"gzip -d {fastas_dir}/*.gz")
+
+    #create config file for pangenome
+    d = {"output": outdir, "r1": "N/A", "r2": "N/A",
+        "conda_path": conda_profile, "envs_path": envs_path, "gdtbtk_conda_path": "N/A",
+        "gtdbtk_path": "N/A", "tree_type": "big", "gtotree_text": "N/A", 
+        "h_flag": "N/A", "rule_type": "gtotree"}
+
+    #create config file
+    config_path = methods.config(d, "pangenome_config", outdir)
+
+    #call big gtotree snakefile
+    os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}") 

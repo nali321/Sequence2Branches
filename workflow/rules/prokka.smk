@@ -6,7 +6,7 @@ rule prokka:
     input:
         assembly=f"{OUTPUT}/spades/contigs.fasta"
     output:
-        gff=f"{OUTPUT}/prokka/genome_isolate.gff"
+        gff=f"{OUTPUT}/isolate_prokka/genome_isolate.gff"
     shell:
         '''
         source {CONDA_PATH}

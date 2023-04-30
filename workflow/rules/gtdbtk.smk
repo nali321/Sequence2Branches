@@ -1,9 +1,13 @@
 OUTPUT = config["output"]
 ENVS = config["envs_path"]
 CONDA_PATH = config["conda_path"]
+GTDBTK_CONDA = config["gtdbtk_conda_path"]
 GTDBTK_PATH = config["gtdbtk_path"]
 
-#needs contigs.fna
+#check if gtdbtk has a separate conda profile
+if GTDBTK_CONDA != "N/A":
+    CONDA_PATH = GTDBTK_CONDA
+
 rule gtdbtk:
     input:
         assembly=f"{OUTPUT}/spades/contigs.fasta"

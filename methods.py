@@ -4,6 +4,10 @@ import yaml
 import pandas as pd
 from ete3 import Tree
 
+#compare the two 
+def path_compare(path1, path2):
+
+
 #natsort a directory
 def nsort(dir, full_path):
     nsort = []
@@ -61,4 +65,4 @@ def closest_leaves(newick, size, nametodata, outgroup):
     if outgroup not in little_leaves:
         little_leaves.append(outgroup)
     
-    return little_leaves
+    return distances, disttoname, little_leaves
