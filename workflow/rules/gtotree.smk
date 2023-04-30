@@ -16,7 +16,7 @@ rule gtotree:
         '''
         cp {OUTPUT}/spades/contigs.fasta {OUTPUT}/accessions/contigs.fa
         source {CONDA_PATH}
-        conda activate {envs}/gtotree
+        conda activate {ENVS}/gtotree
         cd {OUTPUT}/accessions
         GToTree -f {input.fasta} -H {H_FLAG} -t -L Species,Strain -m {input.map} -T IQ-TREE -j 16 -o {OUTPUT}/{TREE}_tree
         conda deactivate
