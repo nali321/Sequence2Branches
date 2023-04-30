@@ -92,9 +92,9 @@ with open (conda_path_file, 'r') as file:
 #THE SAME YOU HAVE TO SOURCE THE GTDBTK CONDA PROFILE SEPARETLY TO MAKE IT WORK
 #compare conda_path with the gtdbtk env path
 if methods.path_compare(conda_path, gtdbtk_path) == None:
-    gtdbtk_conda_path = None
-else:
     gtdbtk_conda_path = conda_profile
+else:
+    gtdbtk_conda_path = os.path.join(os.path.dirname(gtdbtk_path), "etc/profile.d/conda.sh").replace("\\", "/")
 
 #create config file for isolate proccessing
 d = {"output": outdir, "r1": r1, "r2": r2, "illuminaclip": illuminaclip,
