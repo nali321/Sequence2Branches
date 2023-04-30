@@ -180,7 +180,7 @@ config_path = methods.config(d, "gtotree_config", outdir)
 os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}")
 
 #get leaves for small tree
-distances, disttoname, little_leaves = methods.closest_leaves(f"{outdir}/big_tree.tre", little_tree_size, nametodata, outgroup)
+distances, disttoname, little_leaves = methods.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
 
 #create the text files needed for big gtotree
 little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
