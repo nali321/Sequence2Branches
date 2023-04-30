@@ -15,10 +15,12 @@ rule gtdbtk:
         args=f"{OUTPUT}/gtdbtk/gtdbtk.bac120.summary.tsv"
     shell:
         '''
+        set +eu
         mkdir {OUTPUT}/fna
         cp {input.assembly} {OUTPUT}/fna/contigs.fna
         source {CONDA_PATH}
         conda activate {GTDBTK_PATH}
         gtdbtk classify_wf --genome_dir {OUTPUT}/fna --out_dir {OUTPUT}/gtdbtk --cpus 32
         conda deactivate
+        set -eu
         '''
