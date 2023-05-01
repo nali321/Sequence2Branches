@@ -36,9 +36,11 @@ def nsort(dir, full_path):
 
 #any strain names that have a parenthesis will get removed in their
 #gtotree .tre label name causing a key error down the line
-def remove_parenthesis(string):
+#also key error if any spaces dont get turned into underscores
+def standardize(string):
     string = string.replace('(', '_')
     string = string.replace(')', '_')
+    string = string.replace(' ', '_')
     return string
 
 #creates the config file for the snakefile

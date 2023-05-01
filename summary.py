@@ -65,7 +65,7 @@ def leaves(name_structure, acc_structure, max, species):
                     #if 9th column blank, give it its own name
                     if strain == '':
                         strain = "unique_" + str(blank)
-                        strain = methods.remove_parenthesis(strain)
+                        strain = methods.standardize(strain)
                         blank+=1
                         if level == "Complete Genome":
                             leaves.append((x[0], strain, x[19][57:]))
@@ -77,7 +77,7 @@ def leaves(name_structure, acc_structure, max, species):
                     #duplicate check
                     elif strain in strain_names:
                         strain = strain + "_copy_" + str(diff)
-                        strain = methods.remove_parenthesis(strain)
+                        strain = methods.standardize(strain)
                         diff+=1
                         if level == "Complete Genome":
                             leaves.append((x[0], strain, x[19][57:]))
@@ -88,7 +88,7 @@ def leaves(name_structure, acc_structure, max, species):
                     
                     #if its unique, add it normally
                     else:
-                        strain = methods.remove_parenthesis(strain)
+                        strain = methods.standardize(strain)
                         strain_names.add(strain)
                         if level == "Complete Genome":
                             leaves.append((x[0], strain, x[19][57:]))
@@ -104,7 +104,7 @@ def leaves(name_structure, acc_structure, max, species):
                     #duplicate check
                     if strain in strain_names:
                         strain = strain + "_copy_" + str(diff)
-                        strain = methods.remove_parenthesis(strain)
+                        strain = methods.standardize(strain)
                         diff+=1
                         if level == "Complete Genome":
                             leaves.append((x[0], strain, x[19][57:]))
@@ -115,7 +115,7 @@ def leaves(name_structure, acc_structure, max, species):
                     
                     #if unique, add normally
                     else:
-                        strain = methods.remove_parenthesis(strain)
+                        strain = methods.standardize(strain)
                         strain_names.add(strain)
                         if level == "Complete Genome":
                             leaves.append((x[0], strain, x[19][57:]))
