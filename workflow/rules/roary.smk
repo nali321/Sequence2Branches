@@ -4,7 +4,7 @@ CONDA_PATH = config["conda_path"]
 
 rule roary:
     input:
-        gffs=expand(f"{PANGENOME_PATH}/gffs/{{sample}}.gff", sample=SAMPLES)
+        gffs=f"{PANGENOME_PATH}/gffs/{{sample}}.gff"
     output:
         pangenome=f"{PANGENOME_PATH}/roary/gene_presence_absence.csv"
     shell:
