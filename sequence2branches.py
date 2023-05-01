@@ -167,7 +167,7 @@ for x in big_leaves:
 #handle moving and renaming isolate contigs.fasta file from spades
 #to contigs.fa in gtotree rule
 
-#create config file for gtotree
+#create config file for big gtotree
 d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
     "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
     "gtdbtk_path": "N/A", "tree_type": "big", "gtotree_text": big_gtotree_text_files, 
@@ -192,7 +192,7 @@ else:
     gtotree_text.fasta_files(little_gtotree_text_files, little_leaves)
     gtotree_text.map_id(little_gtotree_text_files, little_leaves)
 
-#create config file for gtotree
+#create config file for little gtotree
 d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
     "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
     "gtdbtk_path": "N/A", "tree_type": "little", "gtotree_text": little_gtotree_text_files, 
@@ -201,7 +201,7 @@ d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
 #create config file
 config_path = methods.config(d, "gtotree_config2", outdir)
 
-#call small gtotree snakefile
+#call little gtotree snakefile
 os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}")
 
 #optional pangenome making step 
@@ -219,6 +219,7 @@ if pangenome_size != None:
     for x in distances:
         if len(roary_genomes) < pangenome_size:
             name = disttoname[x]
+            print(nametodata[name][2])
             roary_genomes.append(nametodata[name][2])
     
     #create fastas folder
