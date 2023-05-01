@@ -182,6 +182,10 @@ os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/
 #get leaves for small tree
 distances, disttoname, little_leaves = methods.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
 
+#disttoname gets its leaf names back from big gtotree's newick. any parentheses in
+#any of the strain names gets turned into underscores to avoid newick conflicts
+#you need to check upon creation of disttoname that the strain names match the names back in
+
 #create the text files needed for big gtotree
 little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
 try:

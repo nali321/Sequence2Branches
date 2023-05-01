@@ -34,6 +34,13 @@ def nsort(dir, full_path):
     nsort = natsort.natsorted(nsort)
     return nsort
 
+#any strain names that have a parenthesis will get removed in their
+#gtotree .tre label name causing a key error down the line
+def remove_parenthesis(string):
+    string = string.replace('(', '_')
+    string = string.replace(')', '_')
+    return string
+
 #creates the config file for the snakefile
 def config(d, name, outdir):
     path = os.path.join(f"{outdir}", f"{name}.yaml").replace("\\", "/")
@@ -63,6 +70,8 @@ def closest_leaves(newick, size, nametodata, outgroup):
 
         if x.name != "isolate":
             distances.append(d)
+
+            #any parentheses in strain name get changed back to underscores
             disttoname[d] = x.name
 
     #sort distances from least to greatest
