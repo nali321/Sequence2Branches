@@ -16,6 +16,10 @@ if RULE_TYPE == "pangenome":
     SAMPLES, = glob_wildcards(f"{PANGENOME_PATH}/fastas/{{sample}}.fa")
     RULE_ALL = [f"{PANGENOME_PATH}/roary/gene_presence_absence.csv"]
 
+#select the rule depending on what config file variable is set as
+else: 
+    RULE_ALL = RULE_ALL_DICT[RULE_TYPE]
+
 include: "rules/trim_reads.smk"
 include: "rules/spades.smk"
 include: "rules/prokka.smk"
@@ -24,10 +28,6 @@ include: "rules/gtotree.smk"
 include: "rules/multi_prokka.smk"
 include: "rules/gffs.smk"
 include: "rules/roary.smk"
-
-#select the rule depending on what config file variable is set as
-else: 
-    RULE_ALL = RULE_ALL_DICT[RULE_TYPE]
 
 rule all:
     input:
