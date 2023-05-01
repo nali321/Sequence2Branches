@@ -15,7 +15,7 @@ rule move_isolate_gff:
     input:
         isolate=f"{OUTPUT}/isolate_prokka/genome_isolate.gff"
     output:
-        moved=f"{PANGENOME_PATH}/gffs"
+        moved=f"{PANGENOME_PATH}/gffs/isolate.gff"
     shell:
         '''
         mkdir -p {PANGENOME_PATH}/gffs
