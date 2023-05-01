@@ -219,13 +219,10 @@ if pangenome_size != None:
         print(error)
 
     #gather accessions equal to or less than user specified pangenome size
-    print(f"NAMETODATA: f{nametodata}")
-    print(f"DISTTONAME: f{disttoname}")
     roary_genomes = []
     for x in distances:
         if len(roary_genomes) < pangenome_size:
             name = disttoname[x]
-            print(name)
             roary_genomes.append(nametodata[name][2])
     
     #create fastas folder
@@ -244,7 +241,7 @@ if pangenome_size != None:
     os.system(f"gzip -d {fastas_dir}/*.gz")
 
     #create config file for pangenome
-    d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
+    d = {"output": pan_dir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
         "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
         "gtdbtk_path": "N/A", "tree_type": "N/A", "gtotree_text": "N/A", 
         "h_flag": "N/A", "rule_type": "pangenome"}
