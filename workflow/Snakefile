@@ -12,6 +12,7 @@ include: "rules/roary.smk"
 OUTPUT = config["output"]
 TREE = config["tree_type"]
 RULE_TYPE = config["rule_type"]
+PANGENOME_PATH = f"{OUTPUT}/pangenome"
 
 #pre-determined entries for rule all depending on which snakemake call it is
 RULE_ALL_DICT = {

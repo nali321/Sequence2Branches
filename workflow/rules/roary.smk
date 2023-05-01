@@ -4,13 +4,13 @@ CONDA_PATH = config["conda_path"]
 
 rule roary:
     input:
-        gffs=f"{OUTPUT}/gffs"
+        gffs=f"{PANGENOME_PATH}/gffs"
     output:
-        pangenome=f"{OUTPUT}/roary/gene_presence_absence.csv"
+        pangenome=f"{PANGENOME_PATH}/roary/gene_presence_absence.csv"
     shell:
         '''
         source {CONDA_PATH}
         conda activate {ENVS}/roary
-        roary -e --mafft -p 8 -f {OUTPUT}/roary {input.gffs}/*.gff
+        roary -e --mafft -p 8 -f {PANGENOME_PATH}/roary {input.gffs}/*.gff
         conda deactivate
         '''

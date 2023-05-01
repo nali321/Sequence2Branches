@@ -241,7 +241,7 @@ if pangenome_size != None:
     os.system(f"gzip -d {fastas_dir}/*.gz")
 
     #create config file for pangenome
-    d = {"output": pan_dir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
+    d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
         "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
         "gtdbtk_path": "N/A", "tree_type": "N/A", "gtotree_text": "N/A", 
         "h_flag": "N/A", "rule_type": "pangenome"}
