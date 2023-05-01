@@ -245,8 +245,8 @@ if pangenome_size != None:
 
     #create config file for pangenome
     d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
-        "conda_path": conda_profile, "envs_path": envs_path, "gdtbtk_conda_path": "N/A",
-        "gtdbtk_path": "N/A", "tree_type": "big", "gtotree_text": "N/A", 
+        "conda_path": conda_profile, "envs_path": envs_path, "gtdbtk_conda_path": "N/A",
+        "gtdbtk_path": "N/A", "tree_type": "N/A", "gtotree_text": "N/A", 
         "h_flag": "N/A", "rule_type": "pangenome"}
 
     #create config file
