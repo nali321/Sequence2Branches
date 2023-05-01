@@ -22,8 +22,8 @@ RULE_ALL_DICT = {
 
 #create wildcards to pull the unzipped .fa accessions into prokka rule to run in parallel
 if RULE_TYPE == "pangenome":
-    SAMPLES, = glob_wildcards(f"{OUTPUT}/fastas/{{sample}}.fa")
-    RULE_ALL = [f"{OUTPUT}/roary/gene_presence_absence.csv"]
+    SAMPLES, = glob_wildcards(f"{PANGENOME_PATH}/fastas/{{sample}}.fa")
+    RULE_ALL = [f"{PANGENOME_PATH}/roary/gene_presence_absence.csv"]
 
 #select the rule depending on what config file variable is set as
 else: 
