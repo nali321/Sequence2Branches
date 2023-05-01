@@ -151,5 +151,5 @@ def outgroup(name_structure, acc_structure, species, accession):
 
     #take outgroup data
     for x in acc_structure[accession]:
-        outgroup = (x[0], x[7], x[19][57:])
+        outgroup = (x[0], x[7].replace(" ", "_"), x[19][57:])
         return outgroup
