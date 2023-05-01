@@ -1,5 +1,10 @@
 from snakemake.io import glob_wildcards
 
+OUTPUT = config["output"]
+PANGENOME_PATH = f"{OUTPUT}/pangenome"
+TREE = config["tree_type"]
+RULE_TYPE = config["rule_type"]
+
 include: "rules/trim_reads.smk"
 include: "rules/spades.smk"
 include: "rules/prokka.smk"
@@ -8,11 +13,6 @@ include: "rules/gtotree.smk"
 include: "rules/multi_prokka.smk"
 include: "rules/gffs.smk"
 include: "rules/roary.smk"
-
-OUTPUT = config["output"]
-TREE = config["tree_type"]
-RULE_TYPE = config["rule_type"]
-PANGENOME_PATH = f"{OUTPUT}/pangenome"
 
 #pre-determined entries for rule all depending on which snakemake call it is
 RULE_ALL_DICT = {
