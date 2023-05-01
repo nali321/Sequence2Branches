@@ -215,6 +215,8 @@ if pangenome_size != None:
         print(error)
 
     #gather accessions equal to or less than user specified pangenome size
+    print(f"NAMETODATA: f{nametodata}")
+    print(f"DISTTONAME: f{disttoname}")
     roary_genomes = []
     for x in distances:
         if len(roary_genomes) < pangenome_size:
