@@ -4,7 +4,7 @@ rule move_gffs:
     input:
         gffs=f"{PANGENOME_PATH}/prokka/{{sample}}/{{sample}}.gff"
     output:
-        gffs_folder=f"{PANGENOME_PATH}/gffs/{{sample}}.gff"
+        gffs_folder=f"{PANGENOME_PATH}/gffs"
     shell:
         '''
         mkdir -p {PANGENOME_PATH}/gffs
