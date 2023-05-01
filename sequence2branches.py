@@ -219,7 +219,7 @@ if pangenome_size != None:
     for x in distances:
         if len(roary_genomes) < pangenome_size:
             name = disttoname[x]
-            print(nametodata[name][2])
+            print(name)
             roary_genomes.append(nametodata[name][2])
     
     #create fastas folder
