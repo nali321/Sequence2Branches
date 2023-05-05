@@ -70,7 +70,7 @@ options:
   -o OUTDIR, --outdir OUTDIR
                         Directory where output will go
                         
-  ###OPTIONAL
+  ###OPTIONAL PARAMETERS:
   
   -bt BIG_TREE, --big_tree BIG_TREE
                         Maximum number of leaves for the big tree. Default is 1000
