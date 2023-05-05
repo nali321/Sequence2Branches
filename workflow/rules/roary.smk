@@ -23,6 +23,7 @@ rule roary:
         pangenome=f"{PANGENOME_PATH}/roary/gene_presence_absence.csv"
     shell:
         '''
+        mkdir -p {PANGENOME_PATH}/roary
         mkdir -p {PANGENOME_PATH}/gffs
         cp {ISOLATE_GFF} {PANGENOME_PATH}/gffs
         for gff in {input.gffs}; do
@@ -30,6 +31,7 @@ rule roary:
         done
         source {CONDA_PATH}
         conda activate {ENVS}/roary
-        roary -e --mafft -p 8 -f {PANGENOME_PATH}/roary {PANGENOME_PATH}/gffs/*.gff
+        cd {PANGENOME_PATH}/roary
+        roary -e --mafft -p 8 {PANGENOME_PATH}/gffs/*.gff
         conda deactivate
         '''
