@@ -45,8 +45,8 @@ python ~/tools/Sequence2Branches/sequence2branches.py \
 -r /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/references \
 -g /mmfs1/groups/HPC-Marshall/miniconda3/envs/gtdbtk-2.1.0 \
 -e /mmfs1/home/4565alin/SEQ2B_PREREQ/envs \
--o ~/seq2b_test \
--bt 20 -lt 10 -pg 5
+-o ~/seq2b_test2 \
+-bt 10 -lt 5 -pg 5
 
 #download all genbank genomes
 cd /mmfs1/groups/HPC-Marshall/database/genbank_3-2022
