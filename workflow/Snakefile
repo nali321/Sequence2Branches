@@ -13,6 +13,9 @@ RULE_ALL_DICT = {
 
 #create wildcards to pull the unzipped .fa accessions into prokka rule to run in parallel
 if RULE_TYPE == "pangenome":
+    include: "rules/multi_prokka.smk"
+    # include: "rules/gffs.smk"
+    include: "rules/roary.smk"
     SAMPLES, = glob_wildcards(f"{PANGENOME_PATH}/fastas/{{sample}}.fa")
     RULE_ALL = [f"{PANGENOME_PATH}/roary/gene_presence_absence.csv"]
 
@@ -25,9 +28,7 @@ include: "rules/spades.smk"
 include: "rules/prokka.smk"
 include: "rules/gtdbtk.smk"
 include: "rules/gtotree.smk"
-include: "rules/multi_prokka.smk"
-include: "rules/gffs.smk"
-include: "rules/roary.smk"
+
 
 rule all:
     input:
