@@ -62,10 +62,13 @@ options:
   -e ENVS, --envs ENVS  Filepath to envs folder
   -o OUTDIR, --outdir OUTDIR
                         Directory where output will go
+                        
+  ###OPTIONAL
+  
   -bt BIG_TREE, --big_tree BIG_TREE
-                        Maximum number of leaves for the big tree
+                        Maximum number of leaves for the big tree. Default is 1000
   -lt LITTLE_TREE, --little_tree LITTLE_TREE
-                        Maximum number of leaves for the little tree
+                        Maximum number of leaves for the little tree. Default is 50
   -pg PANGENOME_SIZE, --pangenome_size PANGENOME_SIZE
                         Maximum size of the pangenome
   -sc SNAKEMAKE_CORES, --snakemake_cores SNAKEMAKE_CORES
