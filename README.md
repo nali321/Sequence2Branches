@@ -2,6 +2,9 @@
 
 Sequence2Branches is a pipeline utilizing Snakemake designed to create a species-level phylogenetic tree from FASTQ paired reads. It handles trimming the reads, creating and annotating the assembly, identifying the species of the isolate, and creating the phylogenetic tree.
 
+## Features:
+After identifying the taxonomy of the isolate, Sequence2Branches creates a phylogenetic tree selecting bacterial genomes that share the same species as the isolate from NCBI's [GenBank Database](https://www.ncbi.nlm.nih.gov/genbank/), to be used as leaves of the tree, as well as selecting an outgroup that shares the same genus as the isolate and leaves. The first tree, called "big tree" is made through the user selecting a number of leaves for the tree (default is 1000). A second, more readable tree, called "little tree", is also created with the user selecting the number of leaves (default is 50 and reccomended to be less than 100), but selects its leaves from the most closely related leaves to the isolate in the big tree. Creating the big tree, and then taking a "sub-tree" from it in the form of the little tree allows for the most accurate classification of the isolate given the taxonomic identity and quanity of genomes on NCBI for that specices is unknown.
+
 ## Prerequisites:
 - Must be ran on Linux
 - [Miniconda](https://docs.conda.io/en/latest/miniconda.html) installed and conda set up
