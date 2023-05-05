@@ -39,5 +39,6 @@ This pipeline was originally designed on an HPC-server without internet access o
 ## Usage Guide:
 ### Quick Start
 ```
+conda activate /path/to/envs/sequence2branches
 python /path/to/sequence2branches.py -r1 /path/to/read_1 -r2 /path/to/read_2 -i /path/to/illuminaclip -s /path/to/genbank/assembly_summary.txt -r path/to/genbank/references -g /path/to/gtdbtk -e /path/to/envs -o /path/to/outdir
 ```
