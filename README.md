@@ -42,3 +42,31 @@ This pipeline was originally designed on an HPC-server without internet access o
 conda activate /path/to/envs/sequence2branches
 python /path/to/sequence2branches.py -r1 /path/to/read_1 -r2 /path/to/read_2 -i /path/to/illuminaclip -s /path/to/genbank/assembly_summary.txt -r path/to/genbank/references -g /path/to/gtdbtk -e /path/to/envs -o /path/to/outdir
 ```
+
+### All Parameters:
+```
+options:
+  -h, --help            show this help message and exit
+  -r1 READ1, --read1 READ1
+                        Filepath of first half of read pair
+  -r2 READ2, --read2 READ2
+                        Filepath of second half of read pair
+  -i ILLUMINACLIP, --illuminaclip ILLUMINACLIP
+                        Illuminaclip used in Trimmomatic
+  -s SUMMARY, --summary SUMMARY
+                        Filepath to assembly_summary.txt
+  -r REFERENCES, --references REFERENCES
+                        Filepath to references folder
+  -g GTDBTK, --gtdbtk GTDBTK
+                        Filepath to GTDB-tk conda environment
+  -e ENVS, --envs ENVS  Filepath to envs folder
+  -o OUTDIR, --outdir OUTDIR
+                        Directory where output will go
+  -bt BIG_TREE, --big_tree BIG_TREE
+                        Maximum number of leaves for the big tree
+  -lt LITTLE_TREE, --little_tree LITTLE_TREE
+                        Maximum number of leaves for the little tree
+  -pg PANGENOME_SIZE, --pangenome_size PANGENOME_SIZE
+                        Maximum size of the pangenome
+  -sc SNAKEMAKE_CORES, --snakemake_cores SNAKEMAKE_CORES
+                        Number of cores for Snakemake to use. Default is 6
