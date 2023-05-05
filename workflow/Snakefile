@@ -7,7 +7,7 @@ RULE_TYPE = config["rule_type"]
 
 #pre-determined entries for rule all depending on which snakemake call it is
 RULE_ALL_DICT = {
-    "isolate": [f"{OUTPUT}/isolate_prokka/genome_isolate.gff", f"{OUTPUT}/gtdbtk/gtdbtk.bac120.summary.tsv"],
+    "isolate": [f"{OUTPUT}/isolate_prokka/isolate.gff", f"{OUTPUT}/gtdbtk/gtdbtk.bac120.summary.tsv"],
     "gtotree": [f"{OUTPUT}/{TREE}_tree/{TREE}_tree.tre"]
 }
 

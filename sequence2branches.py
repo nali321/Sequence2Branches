@@ -219,6 +219,7 @@ if pangenome_size != None:
         print(error)
 
     #gather accessions equal to or less than user specified pangenome size
+    #potenitally implement taking the most closely related genomes here?
     roary_genomes = []
     for x in distances:
         if len(roary_genomes) < pangenome_size:

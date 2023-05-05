@@ -47,3 +47,14 @@ python ~/tools/Sequence2Branches/sequence2branches.py \
 -e /mmfs1/home/4565alin/SEQ2B_PREREQ/envs \
 -o ~/seq2b_test \
 -bt 20 -lt 10 -pg 50
+
+#download all genbank genomes
+cd /mmfs1/groups/HPC-Marshall/database/genbank_3-2022
+wget ftp://ftp.ncbi.nih.gov/genomes/genbank/bacteria/assembly_summary.txt
+#parse summary file
+awk -F '\t' '{if($12=="Complete Genome") print $20}' assembly_summary.txt > assembly_summary_complete_genomes.txt
+sed -e "s/https\:\/\//ftp:\/\//g" -i assembly_summary_complete_genomes.txt
+awk -F '\t' '{print $20}' assembly_summary.txt > assembly_summary_allftp_genomes.txt
+sed -e "s/https\:\/\//ftp:\/\//g" -i assembly_summary_allftp_genomes.txt
+#download all
+for next in $(cat /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/assembly_summary_allftp_genomes.txt); do wget -P references "$next"/*genomic.fna.gz; done
