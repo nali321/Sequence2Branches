@@ -1,7 +1,7 @@
 OUTPUT = config["output"]
 ENVS = config["envs_path"]
 CONDA_PATH = config["conda_path"]
-ISOLATE_GFF = f"{OUTPUT}/isolate_prokka/genome_isolate.gff"
+ISOLATE_GFF = f"{OUTPUT}/isolate_prokka/isolate.gff"
 
 # rule roary:
 #     input:
