@@ -128,13 +128,14 @@ def leaves(name_structure, acc_structure, max, species):
         print("Species name does not match collected NCBI entries")
 
     #lower quality genomes added if neccessary
+    #check if the lists are even populated
     for x in full:
         if len(leaves) < max:
-            leaves.append(full[x])
+            leaves.append(x)
     
     for x in partial:
         if len(leaves) < max:
-            leaves.append(partial[x])
+            leaves.append(x)
 
     return leaves
 

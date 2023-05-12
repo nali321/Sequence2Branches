@@ -37,7 +37,7 @@ done
 #install conda environments
 python ~/tools/Sequence2Branches/conda_installer.py -o ~/SEQ2B_PREREQ/envs
 
-#run without pangenome
+#run with pangenome
 python ~/tools/Sequence2Branches/sequence2branches.py \
 -r1 /mmfs1/home/4565alin/reads2tree/2021_genomes/assigned_reads/1_R1_001.fastq.gz \
 -r2 /mmfs1/home/4565alin/reads2tree/2021_genomes/assigned_reads/1_R2_001.fastq.gz \
