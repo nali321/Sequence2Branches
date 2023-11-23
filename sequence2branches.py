@@ -179,6 +179,8 @@ config_path = functions.config(d, "gtotree_config", outdir)
 #call big gtotree snakefile
 os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}")
 
+##########SOMETHING WRONG HERE
+
 #get leaves for small tree
 distances, disttoname, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
 
@@ -207,6 +209,8 @@ config_path = functions.config(d, "gtotree_config2", outdir)
 
 #call little gtotree snakefile
 os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}")
+
+##############
 
 #optional pangenome making step 
 if pangenome_size != None:
