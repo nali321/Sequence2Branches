@@ -89,7 +89,7 @@ def closest_leaves(newick, size, nametodata, outgroup):
 
     #create the gtotree text files for smaller tree
     #you need to re-add outgroup to little tree
-    if outgroup not in little_leaves:
-        little_leaves.append(outgroup)
+    if outgroup[1] not in little_leaves:
+        little_leaves.append(nametodata[outgroup[1]])
     
     return sorted_distances, little_leaves
