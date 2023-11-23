@@ -71,11 +71,10 @@ def closest_leaves(newick, size, nametodata, outgroup):
         d = iso.get_distance(x)
 
         if x.name != "isolate":
+            if (d, x.name) in distances:
+                print("DUPLICATE!!!")
             distances.append((d, x.name))
 
-            #any parentheses in strain name get changed back to underscores
-            if d in disttoname:
-                print("DUPLICATE")
             disttoname[d] = x.name
 
     #sort distances from least to greatest
