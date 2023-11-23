@@ -80,6 +80,7 @@ def closest_leaves(newick, size, nametodata, outgroup):
 
     #sort distances from least to greatest
     sorted_distances = sorted(distances)
+    print(sorted_distances)
 
     #pick user specified max amount of leaves for smaller tree
     little_leaves = []
