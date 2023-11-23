@@ -79,15 +79,13 @@ def closest_leaves(newick, size, nametodata, outgroup):
 
     #sort distances from least to greatest
     sorted_distances = sorted(distances)
-    print(sorted_distances)
 
     #pick user specified max amount of leaves for smaller tree
     little_leaves = []
     for x in sorted_distances:
         if len(little_leaves) < size:
-            # name = disttoname[x]
-            name = x[1]
-            little_leaves.append(nametodata[name])
+            #link name back to data
+            little_leaves.append(nametodata[x[1]])
 
     #create the gtotree text files for smaller tree
     #you need to re-add outgroup to little tree

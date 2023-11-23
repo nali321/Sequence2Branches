@@ -184,7 +184,8 @@ os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/
 #get leaves for small tree
 # distances, disttoname, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
 sorted_distances, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
-
+print(sorted_distances)
+print(little_leaves)
 #disttoname gets its leaf names back from big gtotree's newick. any parentheses in
 #any of the strain names gets turned into underscores to avoid newick conflicts
 #you need to check upon creation of disttoname that the strain names match the names back in
