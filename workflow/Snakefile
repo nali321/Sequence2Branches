@@ -29,7 +29,6 @@ include: "rules/prokka.smk"
 include: "rules/gtdbtk.smk"
 include: "rules/gtotree.smk"
 
-
 rule all:
     input:
         RULE_ALL
