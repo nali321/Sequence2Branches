@@ -182,7 +182,8 @@ os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/
 ##########SOMETHING WRONG HERE
 
 #get leaves for small tree
-distances, disttoname, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
+# distances, disttoname, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
+sorted_distances, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
 
 #disttoname gets its leaf names back from big gtotree's newick. any parentheses in
 #any of the strain names gets turned into underscores to avoid newick conflicts
@@ -225,11 +226,14 @@ if pangenome_size != None:
     #gather accessions equal to or less than user specified pangenome size
     #potenitally implement taking the most closely related genomes here?
     roary_genomes = []
-    for x in distances:
+    # for x in distances:
+    #     if len(roary_genomes) < pangenome_size:
+    #         name = disttoname[x]
+    #         roary_genomes.append(nametodata[name][2])
+    for x in sorted_distances:
         if len(roary_genomes) < pangenome_size:
-            name = disttoname[x]
-            roary_genomes.append(nametodata[name][2])
-    
+            roary_genomes.append(nametodata[x[1]])
+            
     #create fastas folder
     fastas_dir = os.path.join(pan_dir, "fastas").replace("\\", "/")
     try:

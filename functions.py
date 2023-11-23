@@ -54,9 +54,8 @@ def config(d, name, outdir):
 def closest_leaves(newick, size, nametodata, outgroup):
 
     #obtain the newick from the file
-    file = open(newick, "r")
-    data = file.read()
-    file.close()
+    with open(newick, "r") as file:
+        data = file.read()
 
     #set tree from newick and outgroup
     t = Tree(data)
@@ -65,14 +64,14 @@ def closest_leaves(newick, size, nametodata, outgroup):
 
     disttoname = {}
     distances = []
-    #obtain distances from isolate and other leaves
-    #leaves can have the same distance
+    #obtain distance from isolate then the loop over tree to get distances from other leaves
+    #leaves can have the same distance, make a (dist, name) tuple to be unqiue
+    iso = t&"isolate"
     for x in t:
-        iso = t&"isolate"
         d = iso.get_distance(x)
 
         if x.name != "isolate":
-            distances.append(d)
+            distances.append((d, x.name))
 
             #any parentheses in strain name get changed back to underscores
             if d in disttoname:
@@ -80,13 +79,14 @@ def closest_leaves(newick, size, nametodata, outgroup):
             disttoname[d] = x.name
 
     #sort distances from least to greatest
-    distances.sort()
+    sorted_distances = distances.sort()
 
     #pick user specified max amount of leaves for smaller tree
     little_leaves = []
-    for x in distances:
+    for x in sorted_distances:
         if len(little_leaves) < size:
-            name = disttoname[x]
+            # name = disttoname[x]
+            name = x[1]
             little_leaves.append(nametodata[name])
 
     #create the gtotree text files for smaller tree
@@ -94,4 +94,4 @@ def closest_leaves(newick, size, nametodata, outgroup):
     if outgroup not in little_leaves:
         little_leaves.append(outgroup)
     
-    return distances, disttoname, little_leaves
+    return sorted_distances, little_leaves
