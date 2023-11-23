@@ -240,7 +240,7 @@ if pangenome_size != None:
     #         roary_genomes.append(nametodata[name][2])
     for x in sorted_distances:
         if len(roary_genomes) < pangenome_size:
-            roary_genomes.append(nametodata[x[1]])
+            roary_genomes.append(nametodata[x[1]][2])
             
     #create fastas folder
     fastas_dir = os.path.join(pan_dir, "fastas").replace("\\", "/")
