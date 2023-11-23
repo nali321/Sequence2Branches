@@ -133,6 +133,9 @@ outgroup = summary.outgroup(name_structure, acc_structure, other_related[1], oth
 
 #combine outgroup tuple with leaves to get final list
 big_leaves.append(outgroup)
+with open(f'{outdir}/BB_DEBUG.txt', 'w+') as file:
+    for x in big_leaves:
+        file.write(f'{x}\n')
 
 #create the text files needed for big gtotree
 big_gtotree_text_files = os.path.join(outdir, "big_gtotree_text_files").replace("\\", "/")
