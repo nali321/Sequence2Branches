@@ -188,8 +188,8 @@ with open(f'{outdir}/SD_DEBUG.txt', 'w+') as file:
     for x in sorted_distances:
         file.write(f'{x}\n')
 with open(f'{outdir}/LL_DEBUG.txt', 'w+') as file:
-    for key, value in little_leaves.items():
-        file.write(f"{key}: {value}\n")
+    for x in little_leaves:
+        file.write(f'{x}\n')
 #disttoname gets its leaf names back from big gtotree's newick. any parentheses in
 #any of the strain names gets turned into underscores to avoid newick conflicts
 #you need to check upon creation of disttoname that the strain names match the names back in
