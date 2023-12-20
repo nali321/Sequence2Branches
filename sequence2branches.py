@@ -115,6 +115,8 @@ species_name, h_flag, species_acc = gtdbtk_extractor.flag_extractor(gdtbtk_summa
 #create the dictionary structure for species name lookup
 name_structure, acc_structure = summary.structure(summary_path)
 
+#########################################################################################################################################
+
 #GET LEAVES FOR THE BIG TREE
 #obtain leaves by looking up species name
 big_leaves = summary.leaves(name_structure, acc_structure, big_tree_size, species_name)
@@ -146,6 +148,8 @@ except OSError as error:
 else:
     gtotree_text.fasta_files(big_gtotree_text_files, big_leaves)
     gtotree_text.map_id(big_gtotree_text_files, big_leaves)
+
+#########################################################################################################################################
 
 #EXTRACT FILEPATH NAME FROM COLUMN 20: "FTP_PATH", AND ADD "_genomic.fna.gz" AT THE END TO FIND
 #IT IN REFERENCES: /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/references

@@ -123,6 +123,32 @@ def leaves(name_structure, acc_structure, max, species):
                             full.append((x[0], strain, x[19][57:]))
                         else:
                             partial.append((x[0], strain, x[19][57:]))
+                
+                #test if theres a possibility that strain names in the 8th column dont have the strain=
+                else:
+                    #duplicate check
+                    if strain in strain_names:
+                        strain = strain + "_copy_" + str(diff)
+                        strain = functions.standardize(strain)
+                        diff+=1
+                        if level == "Complete Genome":
+                            leaves.append((x[0], strain, x[19][57:]))
+                        elif level != "Complete Genome" and rep == "Full":
+                            full.append((x[0], strain, x[19][57:]))
+                        else:
+                            partial.append((x[0], strain, x[19][57:]))
+                    
+                    #if unique, add normally
+                    else:
+                        strain = functions.standardize(strain)
+                        strain_names.add(strain)
+                        if level == "Complete Genome":
+                            leaves.append((x[0], strain, x[19][57:]))
+                        elif level != "Complete Genome" and rep == "Full":
+                            full.append((x[0], strain, x[19][57:]))
+                        else:
+                            partial.append((x[0], strain, x[19][57:]))
+
 
     except KeyError:
         print("Species name does not match collected NCBI entries")
