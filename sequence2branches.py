@@ -136,14 +136,13 @@ outgroup = summary.outgroup(name_structure, acc_structure, other_related[1], oth
 ###CREATE CODE TO DOUBLE CHECK DUPLICATE STRAIN NAMES SO MAP_ID.TXT FOR SURE DOES NOT HAVE ANY DUPLICATES
 strain_count = {}
 for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
-    print(strain_name)
     if strain_name in strain_count:
         print(f"DUPLICATE DETECTED: {strain_name}")
         strain_count[strain_name] += 1
         new_strain_name = f"{strain_name}_{strain_count[strain_name]}"
         big_leaves[i] = (accession, new_strain_name, full_accession)
     else:
-        strain_count[strain_name] = 0
+        strain_count[strain_name] = 1
 
 #combine outgroup tuple with leaves to get final list
 big_leaves.append(outgroup)
