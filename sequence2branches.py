@@ -143,6 +143,7 @@ with open(f'{outdir}/BB_DEBUG.txt', 'w+') as file:
 strain_count = {}
 for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
     if strain_name in strain_count:
+        print(f"DUPLICATE DETECTED: {strain_name}")
         strain_count[strain_name] += 1
         new_strain_name = f"{strain_name}_{strain_count[strain_name]}"
         big_leaves[i] = (accession, new_strain_name, full_accession)
