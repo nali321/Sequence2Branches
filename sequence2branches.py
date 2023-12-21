@@ -142,6 +142,7 @@ with open(f'{outdir}/BB_DEBUG.txt', 'w+') as file:
 ###CREATE CODE TO DOUBLE CHECK DUPLICATE STRAIN NAMES SO MAP_ID.TXT FOR SURE DOES NOT HAVE ANY DUPLICATES
 strain_count = {}
 for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
+    print(strain_name)
     if strain_name in strain_count:
         print(f"DUPLICATE DETECTED: {strain_name}")
         strain_count[strain_name] += 1
