@@ -139,6 +139,16 @@ with open(f'{outdir}/BB_DEBUG.txt', 'w+') as file:
     for x in big_leaves:
         file.write(f'{x}\n')
 
+###CREATE CODE TO DOUBLE CHECK DUPLICATE STRAIN NAMES SO MAP_ID.TXT FOR SURE DOES NOT HAVE ANY DUPLICATES
+strain_count = {}
+for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
+    if strain_name in strain_count:
+        strain_count[strain_name] += 1
+        new_strain_name = f"{strain_name}_{strain_count[strain_name]}"
+    
+    else:
+        strain_count[strain_name] = 0
+        
 #create the text files needed for big gtotree
 big_gtotree_text_files = os.path.join(outdir, "big_gtotree_text_files").replace("\\", "/")
 try:
