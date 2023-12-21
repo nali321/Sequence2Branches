@@ -133,12 +133,6 @@ other_related = gtdbtk_extractor.other_related(gdtbtk_summary, species_name, spe
 #obtain outgroup by searching its accession
 outgroup = summary.outgroup(name_structure, acc_structure, other_related[1], other_related[0])
 
-#combine outgroup tuple with leaves to get final list
-big_leaves.append(outgroup)
-with open(f'{outdir}/BB_DEBUG.txt', 'w+') as file:
-    for x in big_leaves:
-        file.write(f'{x}\n')
-
 ###CREATE CODE TO DOUBLE CHECK DUPLICATE STRAIN NAMES SO MAP_ID.TXT FOR SURE DOES NOT HAVE ANY DUPLICATES
 strain_count = {}
 for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
@@ -150,6 +144,12 @@ for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
         big_leaves[i] = (accession, new_strain_name, full_accession)
     else:
         strain_count[strain_name] = 0
+
+#combine outgroup tuple with leaves to get final list
+big_leaves.append(outgroup)
+with open(f'{outdir}/BB_DEBUG.txt', 'w+') as file:
+    for x in big_leaves:
+        file.write(f'{x}\n')
 
 #create the text files needed for big gtotree
 big_gtotree_text_files = os.path.join(outdir, "big_gtotree_text_files").replace("\\", "/")
