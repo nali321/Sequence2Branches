@@ -57,7 +57,7 @@ def closest_leaves(newick, size, nametodata, outgroup):
     #set tree from newick and outgroup
     t = Tree(data)
     # q = outgroup[1].replace(" ", "_")
-    t.set_outgroup(t&outgroup)
+    t.set_outgroup(t&outgroup[1])
 
     disttoname = {}
     distances = []
