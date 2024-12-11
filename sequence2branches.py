@@ -180,7 +180,8 @@ for x in big_leaves:
     ftp_path = os.path.join(ref_path, ftp).replace("\\", "/")
     acc_path = os.path.join(f"{outdir}/accessions", acc).replace("\\", "/")
     os.system(f"cp {ftp_path} {acc_path}")
-    nametodata[x[1]] = (x[0], x[1].replace(" ", "_"), acc_path)
+    nametodata[x[1]] = functions.standardize(nametodata[x[1]])
+    nametodata[x[1]] = (x[0], x[1], acc_path)
 
 #handle moving and renaming isolate contigs.fasta file from spades
 #to contigs.fa in gtotree rule
@@ -213,9 +214,9 @@ sorted_distances, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/b
 # with open(f'{outdir}/LL_DEBUG.txt', 'w+') as file:
 #     for x in little_leaves:
 #         file.write(f'{x}\n')
-#disttoname gets its leaf names back from big gtotree's newick. any parentheses in
+#little_leaves gets its leaf names back from big gtotree's newick. any parentheses or colons in
 #any of the strain names gets turned into underscores to avoid newick conflicts
-#you need to check upon creation of disttoname that the strain names match the names back in
+#you need to check upon creation of little_leaves that the strain names match the names back in
 #create the text files needed for big gtotree
 with open(f'{outdir}/LL_DEBUG.txt', 'w+') as file:
     for x in little_leaves:

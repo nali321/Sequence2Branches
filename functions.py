@@ -2,6 +2,7 @@ import os
 import natsort
 import yaml
 import pandas as pd
+import string
 from ete3 import Tree
 
 #compare two paths. used to check if conda profile path and gtdbtk env path
@@ -36,10 +37,11 @@ def nsort(dir, full_path):
 #gtotree .tre label name causing a key error down the line
 #also key error if any spaces dont get turned into underscores
 def standardize(string):
-    string = string.replace('(', '_')
-    string = string.replace(')', '_')
-    string = string.replace(' ', '_')
-    return string
+    # Define a translation table to replace the specified characters with underscores
+    replace_chars = " ()[],:;&=+/%$#@!^*`."
+    translation_table = str.maketrans({char: '_' for char in replace_chars})
+    # Replace all specified characters with underscores
+    return string.translate(translation_table)
 
 #creates the config file for the snakefile
 def config(d, name, outdir):
