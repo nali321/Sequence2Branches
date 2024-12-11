@@ -199,6 +199,10 @@ os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/
 
 ##########SOMETHING WRONG HERE
 ###12/11 fixing time
+with open(f'{outdir}/NAMETODATA_DEBUG.txt', 'w+') as file:
+    for x in nametodata:
+        file.write(f'{x}\n')
+little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
 
 #get leaves for small tree
 # distances, disttoname, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/big_tree.tre", little_tree_size, nametodata, outgroup)
@@ -217,6 +221,8 @@ with open(f'{outdir}/LL_DEBUG.txt', 'w+') as file:
     for x in little_leaves:
         file.write(f'{x}\n')
 little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
+
+
 
 # Check if the directory exists, if not, create it
 if not os.path.exists(little_gtotree_text_files):
