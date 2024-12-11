@@ -144,15 +144,15 @@ for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
     else:
         strain_count[strain_name] = 1
 
+#standarize the entirety of strings in big leaves
+for i, x in enumerate(big_leaves):
+    big_leaves[i] = (x[0], functions.standardize(x[1]), x[2])
+
 #combine outgroup tuple with leaves to get final list
 big_leaves.append(outgroup)
 with open(f'{outdir}/BL_DEBUG.txt', 'w+') as file:
     for x in big_leaves:
         file.write(f'{x}\n')
-
-#standarize the entirety of strings in big leaves
-for i, x in enumerate(big_leaves):
-    big_leaves[i] = (x[0], functions.standardize(x[1]), x[2])
 
 #create the text files needed for big gtotree
 big_gtotree_text_files = os.path.join(outdir, "big_gtotree_text_files").replace("\\", "/")
