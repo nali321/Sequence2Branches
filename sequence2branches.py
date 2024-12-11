@@ -165,7 +165,10 @@ else:
 #EXTRACT FILEPATH NAME FROM COLUMN 20: "FTP_PATH", AND ADD "_genomic.fna.gz" AT THE END TO FIND
 #IT IN REFERENCES: /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/references
 #need to rename .fa.gz file as accession.fa.gz file only
-
+with open(f'{outdir}/BL_DEBUG.txt', 'w+') as file:
+    for x in big_leaves:
+        file.write(f'{x}\n')
+little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
 #move accessions and rename them in the main directory
 #leaves[0] = accession | leaves[1] = strain name | leaves[2] = ftp path
 #also assign name key to accession value
