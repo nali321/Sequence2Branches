@@ -53,7 +53,7 @@ def closest_leaves(newick, size, nametodata, outgroup):
     #obtain the newick from the file
     with open(newick, "r") as file:
         data = file.read()
-        
+
     #set tree from newick and outgroup
     t = Tree(data)
     q = outgroup[1].replace(" ", "_")
@@ -71,7 +71,6 @@ def closest_leaves(newick, size, nametodata, outgroup):
             if (d, x.name) in distances:
                 print("DUPLICATE!!!")
             distances.append((d, x.name))
-
             disttoname[d] = x.name
 
     #sort distances from least to greatest

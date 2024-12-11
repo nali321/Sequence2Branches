@@ -212,8 +212,10 @@ sorted_distances, little_leaves = functions.closest_leaves(f"{outdir}/big_tree/b
 #disttoname gets its leaf names back from big gtotree's newick. any parentheses in
 #any of the strain names gets turned into underscores to avoid newick conflicts
 #you need to check upon creation of disttoname that the strain names match the names back in
-print(f"OUTGROUP IS: {outgroup}")
 #create the text files needed for big gtotree
+with open(f'{outdir}/LL_DEBUG.txt', 'w+') as file:
+    for x in little_leaves:
+        file.write(f'{x}\n')
 little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
 try:
     os.mkdir(little_gtotree_text_files)
