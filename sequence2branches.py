@@ -146,7 +146,7 @@ for i, (accession, strain_name, full_accession) in enumerate(big_leaves):
 
 #combine outgroup tuple with leaves to get final list
 big_leaves.append(outgroup)
-with open(f'{outdir}/BB_DEBUG.txt', 'w+') as file:
+with open(f'{outdir}/BL_DEBUG.txt', 'w+') as file:
     for x in big_leaves:
         file.write(f'{x}\n')
 
@@ -165,9 +165,6 @@ else:
 #EXTRACT FILEPATH NAME FROM COLUMN 20: "FTP_PATH", AND ADD "_genomic.fna.gz" AT THE END TO FIND
 #IT IN REFERENCES: /mmfs1/groups/HPC-Marshall/database/genbank_3-2022/references
 #need to rename .fa.gz file as accession.fa.gz file only
-with open(f'{outdir}/BL_DEBUG.txt', 'w+') as file:
-    for x in big_leaves:
-        file.write(f'{x}\n')
 little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
 #move accessions and rename them in the main directory
 #leaves[0] = accession | leaves[1] = strain name | leaves[2] = ftp path
@@ -183,7 +180,7 @@ for x in big_leaves:
     ftp_path = os.path.join(ref_path, ftp).replace("\\", "/")
     acc_path = os.path.join(f"{outdir}/accessions", acc).replace("\\", "/")
     os.system(f"cp {ftp_path} {acc_path}")
-    nametodata[x[1]] = functions.standardize(nametodata[x[1]])
+    nametodata[x[1]] = functions.standardize([x[1]])
     nametodata[x[1]] = (x[0], x[1], acc_path)
 
 #handle moving and renaming isolate contigs.fasta file from spades
