@@ -149,7 +149,6 @@ def leaves(name_structure, acc_structure, max, species):
                         else:
                             partial.append((x[0], strain, x[19][57:]))
 
-
     except KeyError:
         print("Species name does not match collected NCBI entries")
 
