@@ -7,7 +7,6 @@ from ete3 import Tree
 #compare two paths. used to check if conda profile path and gtdbtk env path
 #are from the same conda profile
 def path_compare(path1, path2):
-
     #if the paths contain two or more folders check if equal
     if path1.count(os.path.sep) >= 2 and path2.count(os.path.sep) >= 2:
         parent_path2 = os.path.dirname(path2)
@@ -15,7 +14,6 @@ def path_compare(path1, path2):
             return True
         else:
             return None
-        
     #if the paths are only one folder long check if equal
     else:
         if path1 == path2:
