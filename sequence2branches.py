@@ -180,8 +180,7 @@ for x in big_leaves:
     ftp_path = os.path.join(ref_path, ftp).replace("\\", "/")
     acc_path = os.path.join(f"{outdir}/accessions", acc).replace("\\", "/")
     os.system(f"cp {ftp_path} {acc_path}")
-    print(f"DEBUG: {x[1]} {isinstance(x[1], str)}")
-    nametodata[x[1]] = functions.standardize([x[1]])
+    nametodata[x[1]] = functions.standardize(x[1])
     nametodata[x[1]] = (x[0], x[1], acc_path)
 
 #handle moving and renaming isolate contigs.fasta file from spades
