@@ -50,11 +50,10 @@ def config(d, name, outdir):
 
 #returns user-specified closest leaves from isolate
 def closest_leaves(newick, size, nametodata, outgroup):
-
     #obtain the newick from the file
     with open(newick, "r") as file:
         data = file.read()
-
+        
     #set tree from newick and outgroup
     t = Tree(data)
     q = outgroup[1].replace(" ", "_")
