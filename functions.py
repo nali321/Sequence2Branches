@@ -56,8 +56,8 @@ def closest_leaves(newick, size, nametodata, outgroup):
 
     #set tree from newick and outgroup
     t = Tree(data)
-    q = outgroup[1].replace(" ", "_")
-    t.set_outgroup(t&q)
+    # q = outgroup[1].replace(" ", "_")
+    t.set_outgroup(t&outgroup)
 
     disttoname = {}
     distances = []
@@ -83,9 +83,9 @@ def closest_leaves(newick, size, nametodata, outgroup):
             #link name back to data
             little_leaves.append(nametodata[x[1]])
 
-    #create the gtotree text files for smaller tree
-    #you need to re-add outgroup to little tree
-    if outgroup[1] not in little_leaves:
-        little_leaves.append(nametodata[outgroup[1]])
+    # #create the gtotree text files for smaller tree
+    # #you need to re-add outgroup to little tree
+    # if outgroup[1] not in little_leaves:
+    #     little_leaves.append(nametodata[outgroup[1]])
     
     return sorted_distances, little_leaves

@@ -217,13 +217,17 @@ with open(f'{outdir}/LL_DEBUG.txt', 'w+') as file:
     for x in little_leaves:
         file.write(f'{x}\n')
 little_gtotree_text_files = os.path.join(outdir, "little_gtotree_text_files").replace("\\", "/")
-try:
-    os.mkdir(little_gtotree_text_files)
-except OSError as error:
-    print(error)
-else:
-    gtotree_text.fasta_files(little_gtotree_text_files, little_leaves)
-    gtotree_text.map_id(little_gtotree_text_files, little_leaves)
+
+# Check if the directory exists, if not, create it
+if not os.path.exists(little_gtotree_text_files):
+    try:
+        os.mkdir(little_gtotree_text_files)
+    except OSError as error:
+        print(f"Error creating directory: {error}")
+
+# Run the two functions regardless of directory creation
+gtotree_text.fasta_files(little_gtotree_text_files, little_leaves)
+gtotree_text.map_id(little_gtotree_text_files, little_leaves)
 
 #create config file for little gtotree
 d = {"output": outdir, "r1": "N/A", "r2": "N/A", "illuminaclip": "N/A",
