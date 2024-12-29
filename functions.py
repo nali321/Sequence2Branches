@@ -36,12 +36,13 @@ def nsort(dir, full_path):
 #any strain names that have a parenthesis will get removed in their
 #gtotree .tre label name causing a key error down the line
 #also key error if any spaces dont get turned into underscores
+#if a strain has two parantheses, it will be replaced with one 
 def standardize(string):
     # Define a translation table to replace the specified characters with underscores
     replace_chars = " ()[],:;&=+/%$#@!^*`."
     translation_table = str.maketrans({char: '_' for char in replace_chars})
     # Replace all specified characters with underscores
-    return string.translate(translation_table)
+    return string.translate(translation_table).replace("__", "_")
 
 #creates the config file for the snakefile
 def config(d, name, outdir):
