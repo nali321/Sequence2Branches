@@ -72,7 +72,8 @@ def closest_leaves(newick, size, nametodata, outgroup):
         if x.name != "isolate":
             if (d, x.name) in distances:
                 print("DUPLICATE!!!")
-            distances.append((d, x.name))
+            #RE-STANDARDIZE THE NAME AFTER IT GETS NEWICKIFIED
+            distances.append((d, standardize(x.name)))
             disttoname[d] = x.name
 
     #sort distances from least to greatest
