@@ -299,4 +299,8 @@ if pangenome_size != None:
     config_path = functions.config(d, "pangenome_config", outdir)
 
     #call big gtotree snakefile
-    os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}") 
+    os.system(f"snakemake --cores {sc} --directory {outdir} --snakefile {snake_dir}/Snakefile all --configfile {config_path}")
+
+with open(f'{outdir}/OUTGROUP.txt', 'w+') as file:
+    for x in outgroup:
+        file.write(f'{x}\n')
